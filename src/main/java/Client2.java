@@ -8,7 +8,6 @@ import java.net.UnknownHostException;
 public class Client2 {
     public static void main(String[] args) throws InterruptedException {
         try(Socket socket = new Socket("localhost", 3345);
-            BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
             ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
             ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());)
         {
@@ -24,7 +23,7 @@ public class Client2 {
                 uiGame.actionPlayerUI.subscribe(turnMessage -> {
                     oos.writeObject(turnMessage);
                     oos.flush();
-                    System.out.println("Clien sent message " + turnMessage.idStick + " " + turnMessage.resultTurn);
+                    System.out.println("Client sent message " + turnMessage.idStick + " " + turnMessage.resultTurn);
                 });
             }
             while(!socket.isOutputShutdown()){
@@ -37,10 +36,8 @@ public class Client2 {
             }
             System.out.println("Closing connections & channels on clentSide - DONE.");
         } catch (UnknownHostException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         } catch (IOException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         } catch (ClassNotFoundException e) {
             e.printStackTrace();

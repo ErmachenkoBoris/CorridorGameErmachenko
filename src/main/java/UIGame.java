@@ -16,16 +16,13 @@ public class UIGame {
     public PublishSubject<TurnMessage> actionPlayerUI = PublishSubject.create();
     public PublishSubject<TurnMessage> actionOpponentUI = PublishSubject.create();
 
-
-    // private javax.swing.JPanel jPanel1;
-
     public UIGame(String player, int turn) {
          final int height = 500;
          final int width = 500;
          final int cells = 10;
 
         JFrame.setDefaultLookAndFeelDecorated(true);
-        JFrame frame = new JFrame("The sticks. Player name: " + player);
+        JFrame frame = new JFrame("The CORRIDORCHIKI by Ermachenko Player name: " + player);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         jPanel1 = new Map(cells, width, height, player, turn);
         frame.getContentPane().add(jPanel1);
@@ -96,7 +93,7 @@ class Map extends JPanel {
         }
         this.init();
 
-        JLabel lab1 = new JLabel("Opponent: " + this.opponentScore+ "Your score: " + this.playerScore );
+        JLabel lab1 = new JLabel("Opponent: " + this.opponentScore+ "  Your score: " + this.playerScore );
         setLayout(new FlowLayout());
         add(lab1);
 
@@ -106,7 +103,7 @@ class Map extends JPanel {
             System.out.println("TURN " + turnMessage.resultTurn);
             if(Integer.parseInt(turnMessage.resultTurn) > 0) {
                 this.opponentScore++;
-                lab1.setText("Opponent: " + this.opponentScore+ "Your score: " + this.playerScore);
+                lab1.setText("Opponent: " + this.opponentScore+ "  Your score: " + this.playerScore);
                 calculateResult(stickStore.getSticks().get(Integer.parseInt(turnMessage.idStick)), opponentColor);
                 System.out.println("OPPONENT SCORE SCORE " + this.opponentScore);
                 this.turn = 0;
@@ -132,7 +129,7 @@ class Map extends JPanel {
                             setTurn(result);
                             if(result>0) {
                                 playerScore++;
-                                lab1.setText("Opponent: " + opponentScore+ "Your score: " + playerScore);
+                                lab1.setText("Opponent: " + opponentScore+ "  Your score: " + playerScore);
                                 System.out.println("PLAYER SCORE " + playerScore);
                             }
                             TurnMessage newTurnMessage = new TurnMessage(stick.getId(), result);
@@ -301,76 +298,4 @@ class Map extends JPanel {
         }
         return false;
     }
-
-//    public boolean right(int id) {
-//        if((id+1) % linesCount == 0) {
-//            return false;
-//        }
-//        if(this.sticks.get(id + 1).color != this.playerColor){
-//            return false;
-//        };
-//        if(this.sticks.get(id + 1).getId() == this.startStick.getId()){
-//            return true;
-//        };
-//        id++;
-//        boolean r = this.right(id);
-//        boolean u = this.up(id);
-//        boolean d = this.down(id);
-//        return (r || u || d );
-//
-//    }
-//
-//    public boolean left(int id) {
-//        if((id-1) % linesCount == 0) {
-//            return false;
-//        }
-//        if(this.sticks.get(id - 1).color != this.playerColor){
-//            return false;
-//        };
-//        if(this.sticks.get(id - 1).getId() == this.startStick.getId()){
-//            return true;
-//        };
-//        id--;
-//        boolean l = this.left(id);
-//        boolean u = this.up(id);
-//        boolean d = this.down(id);
-//        return (l || u || d );
-//    }
-//
-//    public boolean up(int id) {
-//        if(id < linesCount ) {
-//            return false;
-//        }
-//        if(this.sticks.get(id - linesCount).color != this.playerColor){
-//            return false;
-//        };
-//        if(this.sticks.get(id - linesCount).getId() == this.startStick.getId()){
-//            return true;
-//        };
-//        id = id - linesCount;
-//        boolean r = this.right(id);
-//        boolean l = this.left(id);
-//        boolean u = this.up(id);
-//        return (l || r || u );
-//    }
-//
-//    public boolean down (int id) {
-//        if(id >= linesCount*(linesCount-1) ) {
-//            return false;
-//        }
-//        if(this.sticks.get(id + linesCount).color != this.playerColor){
-//            return false;
-//        };
-//        if(this.sticks.get(id + linesCount).getId() == this.startStick.getId()){
-//            return true;
-//        };
-//        id = id - linesCount;
-//        boolean r = this.right(id);
-//        boolean l = this.left(id);
-//        boolean d = this.down(id);
-//        return (l || r || d );
-//    }
-
-
-
 }
